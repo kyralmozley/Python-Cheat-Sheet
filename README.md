@@ -54,6 +54,7 @@ Official Python code style says underscores should be used, not camelcase (varia
 - len()     #get length 
 - #comment
 - str() / int() / float()     #convert to string, integer or floating point
+- type()    # get type
 
 ## Flow Control
 - if statement:
@@ -102,6 +103,9 @@ def spam(divideBy):
 A list is a value that contains multiple values in an ordered sequence. A list looks like spam=['cat', 'bat', 'rat'].
 Like all good programming langauges, indexing starts at zero (spam[0] = 'cat').
 
+Lists are a *mutable* data type - it can have values added, removed or changed.
+
+
 Negative indecies refer from end of list, so [-1] gives you the last element, [-2] the 2nd to last and so on.
 
 [1:4] gives you a *slice* with elements 1 upto (not including) 4.
@@ -127,8 +131,38 @@ Negative indecies refer from end of list, so [-1] gives you the last element, [-
 >>> cat = ['fat', 'black', 'hairy']
 >>> size, colour, type = cat
 ```
+Oh yeah, strings are technically a list of characters, so you can do things like 
+>>> name = 'Kyra'
+>>> name[0]
+'K'
+
 ### Sorting
 The sort() method sorts in place. You cannot sort lists that have a mix of data types. It sorts using ASCII order (e.g. uppercase before lowercase).
 - list.sort()
 - list.sort(reverse=True) will sort in reverse order
 - To sort in regular alphabetical order, list.sort(key=str.lower) which treats everything as if it was lowercase.
+
+## Tuple 
+Almost identical to a list, except: 
+- Use parentheses instead of square brackets 
+- They, unlike lists are *immutable*, their values cannot be modified, appended or removed 
+Use tuples when you don't intend for sequence of values to change, because they are immutable python also optimises code making it slightly faster than a list.
+
+If you only have one value in tuple, indicate by placing trailing comma: ('cat', )
+
+To convert a tuple to a list: `tuple(list)`
+To convert a list to a tuple: `list(tuple)`
+
+## Dictionaries
+A dictionary has a key-value pair. They are typed with braces
+```python
+>>> myDictionary = {
+      'size':   'fat',
+      'color':  'grey',
+      'type':   'hairy'
+   }
+```
+Unlike lists, they are unordered. Because they are not ordered, you cannot slice them like lists. To access the key: myDictionary['size'] would return 'fat'. 
+- To return a list of values, myDictionary.values()
+- To return a list of keys, myDictionary.keys() 
+
