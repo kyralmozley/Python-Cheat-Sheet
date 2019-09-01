@@ -3,9 +3,15 @@
 # Table of Contents
 1. [Basics](#basics)
 2. [Flow Control](#flow-control)
+3. [Lists](#lists)
+4. [Tuple](#tuple)
+5. [Dictionaries](#dictionary)
+6. [Regular Experssions](#regex)
+7. [Files](#files)
+8. [Miscellaneous](#misc)
 
-
-## Basics <a name="basics"></a>
+<a name="basics"></a>
+## Basics 
 
 ### Math Operators:
 
@@ -97,7 +103,8 @@ Useful methods:
 - remove whitespace with strip(), lstrip(), rstrip()
   - can pass argument of which characters to strip
 
-## Flow Control <a name="flow-control"></a>
+<a name="flow-control"></a>
+## Flow Control 
 - if statement:
     ...
   else:
@@ -151,7 +158,7 @@ Assertions are used as santity checks. An assert statement:
 ```python
 assert condition, 'string if false'
 ```
-
+<a name="lists"></a>
 ## Lists
 
 A list is a value that contains multiple values in an ordered sequence. A list looks like spam=['cat', 'bat', 'rat'].
@@ -198,6 +205,7 @@ The sort() method sorts in place. You cannot sort lists that have a mix of data 
 - list.sort(reverse=True) will sort in reverse order
 - To sort in regular alphabetical order, list.sort(key=str.lower) which treats everything as if it was lowercase.
 
+<a name="tuple"></a>
 ## Tuple 
 Almost identical to a list, except: 
 - Use parentheses instead of square brackets 
@@ -209,6 +217,7 @@ If you only have one value in tuple, indicate by placing trailing comma: ('cat',
 To convert a tuple to a list: `tuple(list)`
 To convert a list to a tuple: `list(tuple)`
 
+<a name="dictionary"></a>
 ## Dictionaries
 A dictionary has a key-value pair. They are typed with braces
 ```python
@@ -227,6 +236,7 @@ Unlike lists, they are unordered. Because they are not ordered, you cannot slice
 
 Can use pprint (pretty print) to print a dictionary nicely
 
+<a name="regex"></a>
 ## Pattern Matching and Regular Expressions
 \d stands for a digit character. 
 
@@ -272,6 +282,7 @@ Adding parentheses will creates *groups*, so `(\d{3})-(\d{3}-\d{4})` has 2 group
 
 e.g/ The regular expression \d+\s\w+ will match text that has one or more digit (d+), followed by a whitespace char (s), followed by one or more letter/digit/underscore (w+)
 
+<a name="files"></a>
 ## Reading and Writing Files
 
 Paths
@@ -320,6 +331,6 @@ Lets you unzip and work on files.
 >>> newZip.write('spam.txt', compress_type=zipfile.ZIP_DEFLATED)
 >>> newZip.close()
 ```
-
+<a name="misc"></a>
 ## Miscellaneous
 - pyperclip.copy(text) copies value to clipboard, whilst pyperclip.paste() pastes
