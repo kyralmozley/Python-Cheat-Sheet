@@ -1,11 +1,11 @@
 # Python-Cheat-Sheet
 
 # Table of Contents
-1. [Basics](##basics)
-2. [Flow Control](##flow-control)
+1. [Basics](#basics)
+2. [Flow Control](#flow-control)
 
 
-## Basics
+## Basics <a name="basics"></a>
 
 ### Math Operators:
 
