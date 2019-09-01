@@ -1,6 +1,11 @@
 # Python-Cheat-Sheet
 
-## Basics 
+# Table of Contents
+1. [Basics](##basics)
+2. [Flow Control](##flow-control)
+
+
+## Basics <a name="basics"></a>
 
 ### Math Operators:
 
@@ -56,7 +61,43 @@ Official Python code style says underscores should be used, not camelcase (varia
 - str() / int() / float()     #convert to string, integer or floating point
 - type()    # get type
 
-## Flow Control
+### Strings
+
+- Escape character, \, lets you put characters like ' in a string
+  - \' , \" : Quotes
+  - \t : tab
+  - \n : newline
+  - \\ : backslash
+- If you place an r before string, it is a *raw string*, so ignores whitespace
+- Multiline string ''' (note: can also use these for multiline comments)
+
+Useful methods: 
+- upper()     make uppercase
+- lower()     make lowercase
+- isupper()   is it all uppercase?
+- islower()   is it all lowercase?
+- isalpha()   is only letters? 
+- isalnum()   is only letters and numbers?
+- isdecimal() is only numeric?
+- isspace()   is only space/tab/new lines?
+- istitle()   do words begin with an uppercase letter followed by lowercase?
+- startswith()
+- endswith()
+- join() , pass a list of strings, return a string, e.g.
+```python
+>>> ','.join(['cats', 'rats', 'bats'])
+'cats, rats, bats'
+>>> ' '.join(['cats', 'rats', 'bats'])
+'cats rats bats'
+```
+- split() takes a string value and returns a list of strings, by default split on whitespace. 
+- can justify text with rjust(), ljust(), center()
+  - first argument says how much to justify by (e.g. 10)
+  - second optional argument says what to fill the space with (e.g. '-' or '*')
+- remove whitespace with strip(), lstrip(), rstrip()
+  - can pass argument of which characters to strip
+
+## Flow Control <a name="flow-control"></a>
 - if statement:
     ...
   else:
@@ -98,6 +139,19 @@ def spam(divideBy):
         print("invalid")
 ```
 
+Exceptions are raised with a *raise* statement.  
+```python
+if len(phone) != 11:
+    raise Exception('input a correct phone number')
+```
+
+traceback.format_exec() returns a string for the call stack (print stack trace equiv.)
+
+Assertions are used as santity checks. An assert statement:
+```python
+assert condition, 'string if false'
+```
+
 ## Lists
 
 A list is a value that contains multiple values in an ordered sequence. A list looks like spam=['cat', 'bat', 'rat'].
@@ -132,9 +186,11 @@ Negative indecies refer from end of list, so [-1] gives you the last element, [-
 >>> size, colour, type = cat
 ```
 Oh yeah, strings are technically a list of characters, so you can do things like 
+```python
 >>> name = 'Kyra'
 >>> name[0]
 'K'
+```
 
 ### Sorting
 The sort() method sorts in place. You cannot sort lists that have a mix of data types. It sorts using ASCII order (e.g. uppercase before lowercase).
@@ -165,4 +221,105 @@ A dictionary has a key-value pair. They are typed with braces
 Unlike lists, they are unordered. Because they are not ordered, you cannot slice them like lists. To access the key: myDictionary['size'] would return 'fat'. 
 - To return a list of values, myDictionary.values()
 - To return a list of keys, myDictionary.keys() 
+- To return a list of key,value pairs, myDicitionary.items()
+- Also use in/not in to check if exists in myDicitionary.values() or .keys()
+- Get method has a fallback: myDicitionary.get('cat', 0) - if cat is not a key, it will return 0
 
+Can use pprint (pretty print) to print a dictionary nicely
+
+## Pattern Matching and Regular Expressions
+\d stands for a digit character. 
+
+Matchig a telephone number format (XXX-XXX-XXXX) is simple, `\d{3}-\d{3}-\d{4}` 
+Can use compile, search and group to get:
+```python
+>>> import re
+>>> phoneNum = re.compile(r'\d{3}-\d{3}-\d{4}')
+>>> mo = phoneNum.search('My phone number is 415-555-1234')
+>>> mo.group()
+'415-555-1234'
+```
+Here we import regex, create a regex object with compile, pass the string to search it - which returns a match object, and then call the group to return the matched text.
+
+Adding parentheses will creates *groups*, so `(\d{3})-(\d{3}-\d{4})` has 2 groups, group(0) is the whole thing, group(1) is the first () and group(2) the second, and groups() will return a tuple. 
+
+- can use a pipe (|) if you want to match multiple expressions
+- can optionally match with (text)?, e.g. `r'Bat(wo)?man'`
+- * matches 0 or more
+- + matches one or more
+- findall() returns the strings of every match, whislt search only returns the first instance
+- ^ means must start with, whilst $ means must end with this pattern
+- . is a wildcard that will match any character
+  - .* matches everything (greedy mode) - get as much text as possible
+  - .? nongreedy - matches shortest possible
+- sub() subsitutes strings, the first argument is the string to replace, the second is the text
+```python 
+>>> nameRegex = re.compile(r'Agent (\w)\w*')
+>>> nameRegex.sub(r'\1****', 'Agent Alice gave the document to Agent Bob')
+'A**** gave the document to B****'
+```
+
+#### Character Classes
+
+| Char class  | Represents |
+| --------- | --------- |
+| \d  | 0-9 |
+| \D | Any char not 0-9 | 
+| \w | Any letter, digit or _ |
+| \W | Any char not a ltter, digit or _ |
+| \s | Any space, tab, newline |
+| \S | Any char not a space, tab, newline |
+
+e.g/ The regular expression \d+\s\w+ will match text that has one or more digit (d+), followed by a whitespace char (s), followed by one or more letter/digit/underscore (w+)
+
+## Reading and Writing Files
+
+Paths
+- To get avoid Windows paths using \ whilst Linux/macOS uses / you can use `os.path.join('usr', 'bin')` to make it system independent
+- os.getcwd() gets the current working directory
+- os.chdir('..') changes directory 
+- os.makedirs(...) creates a folder (also creates any necessary intermediate to ensure a full path exists)
+- os.path.abspath(path) returns a string of the absolute path
+- os.path.ispath(path) will return True if argument is an absolute path
+- os.path.relpath(path, start) will return a string of a relative path from start path to path
+- os.path.dirname(path) will return a stirng of everything before the last slash
+- os.path.exists(path) 
+- os.path.isfile(path)
+- os.path.isdir(path)
+- os.path.getsize(path) returns size of file (in bytes)
+- os.listdir(path) returns a list of filename strings for each file in path
+- os.unlink(path) will delete the file at path
+- os.rmdir(path) will delete folder at path
+
+### File Reading/Writing
+Read mode,r, allows you to read a file. Write mode, w, will overwrite the file, and append mode, a, will append text to the end of an existing file.
+- To open a file, pass open() the string path of the file, returns file object. Optional second parameter ('r','w', or 'a')
+- myfile.read() returns the string stored in the file
+- myfile.readlines() will return a list of strings
+- myfile.write('some text\n') 
+- myfile.close()
+
+### Shelve
+You can save variables from Python to binary shelf files, allowing program to restore data
+```python
+>>> import shelve
+>>> shelFile = shelve.open('mydata')
+```
+### ZipFile
+Lets you unzip and work on files.
+- exampleZip = zipfile.ZipFile('example.zip')
+- namelist() returns list of strings for all files/folders in Zip file
+- getinfo() will get info about that particular file (file_size, compress_size)
+- close()
+- extract('file.txt')
+- extractall()
+- To create a Zip file:
+```python
+>>> import zipfile
+>>> newZip = zipfile.ZipFile('new.zip', 'w')
+>>> newZip.write('spam.txt', compress_type=zipfile.ZIP_DEFLATED)
+>>> newZip.close()
+```
+
+## Miscellaneous
+- pyperclip.copy(text) copies value to clipboard, whilst pyperclip.paste() pastes
