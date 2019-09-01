@@ -1,5 +1,11 @@
 # Python-Cheat-Sheet
 
+I made this for a personal aid whilst learning Python. 
+
+(There may be errors/typos... haven't proof read yet)
+
+Will try to keep adding as I learn more useful tools.
+
 # Table of Contents
 1. [Basics](#basics)
 2. [Flow Control](#flow-control)
