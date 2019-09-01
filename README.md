@@ -5,7 +5,7 @@
 2. [Flow Control](##flow-control)
 
 
-## Basics <a name="basics"></a>
+## Basics
 
 ### Math Operators:
 
